@@ -1,0 +1,14 @@
+<a href="homeBack">Home Page</a>
+
+
+<table style="border:1px black solid">
+    <% for(var i=0; i<results.length; i++) { %>
+        <tr>
+            <td> Brand: <%= results[i].brand %> </td>
+            <td> Name: <%= results[i].name %> </td>
+            <td> Color: <%= results[i].color %> </td>
+            <td> Year: <%= results[i].year %> </td>
+            <td> Seats: <%= results[i].seats %> </td>
+        </tr>
+    <% } %>
+</table>

@@ -1,0 +1,125 @@
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+       <script>
+
+    function getParameterByName(name, url) {
+
+    if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, '\\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+
+    if (!results) 
+    return null;
+
+    if (!results[2])
+    return '';
+
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+
+}
+     
+function load() {
+    //alert(getParameterByName("fail"))
+    if(getParameterByName("fail")=="true") {
+            //fil!! populate a div with red FAIL
+            document.getElementById("update").innerHTML = "LOGIN FAILURE";   
+
+        }
+    
+}
+
+    $.ajax({
+        url: "http://localhost:3000/data2",
+        type: "GET",
+        dataType: "json",
+        success: process
+    });   
+    
+    function process2(){
+        var username = document.getElementById("userName").value;
+        var password = document.getElementById("password").value;
+
+        console.log("Username:" + username);
+        console.log("Password" + password);
+
+        $.ajax({
+        url : "http://localhost:3000/post",
+        type: "POST",
+        data : {username: username, password: password},
+        success: postProcess
+    });
+    
+    }
+    
+    function process(data) {
+
+       console.log(data);
+
+    }     
+
+    function postProcess(data,status) {
+
+        console.log(data);
+        console.log("Status:" + status);
+
+        if(data == true){
+            document.getElementById("update").innerHTML = "Username and Password Match!";    
+        }
+        if(data == false){
+            document.getElementById("update").innerHTML = "Incorrect Username or Password :(";    
+        }
+    }   
+
+
+</script>
+</head>
+
+<body onload="load()" background="flow.gif">
+
+
+<a href="list">GO TO LIST, BOIII</a>
+
+
+
+<form action="login" method="post">
+
+
+
+
+
+
+
+
+    <h1>Login<h1>
+ 
+
+
+Enter Username: 
+    <input type="text" name="username">
+    <br><br>
+Enter Password:
+    <input type="text" name="password">
+    <br><br>
+    <input type="submit">
+</form>
+
+<br><br>
+<div id="update" style="width: 200px;background:red;"></div>
+
+
+
+
+<!-- 
+Enter Username:    
+<input type="text" id="userName">
+Enter Password:
+<input type="text" id="password">
+
+<button value="go" onclick="process2()"> GO </button> -->
+
+
+</body>
+</html>

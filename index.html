@@ -1,0 +1,86 @@
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+       <script>
+       
+        
+    $.ajax({
+        url: "http://localhost:3000/data2",
+        type: "GET",
+        dataType: "json",
+        success: process
+    });   
+    
+    function process2(){
+        var username = document.getElementById("userName").value;
+        var password = document.getElementById("password").value;
+
+        console.log("Username:" + username);
+        console.log("Password" + password);
+
+        $.ajax({
+        url : "http://localhost:3000/post",
+        type: "POST",
+        data : {username: username, password: password},
+        success: postProcess
+    });
+    
+    }
+    
+    function process(data) {
+
+       console.log(data);
+
+    }        
+    function postProcess(data,status) {
+
+        console.log(data);
+        console.log("Status:" + status);
+
+        if(data == true){
+            document.getElementById("update").innerHTML = "Username and Password Match!";    
+        }
+        if(data == false){
+            document.getElementById("update").innerHTML = "Incorrect Username or Password :(";    
+        }
+
+
+
+    }   
+
+   
+    
+
+</script>
+</head>
+
+<body>
+<h1>Login<h1>
+    <br><br>
+<form action="login" method="post">
+    
+Enter Username: 
+    <input type="text" name="userName">
+
+Enter Password:
+    <input type="text" name="password">
+    <input type="submit">
+
+</form>
+
+
+<!-- 
+Enter Username:    
+<input type="text" id="userName">
+Enter Password:
+<input type="text" id="password">
+
+<button value="go" onclick="process2()"> GO </button> -->
+
+<br><br>
+<div id="update"></div>
+
+
+</body>
+</html>
